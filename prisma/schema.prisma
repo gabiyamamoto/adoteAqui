@@ -1,36 +1,37 @@
-// prisma/schema.prisma
+
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Tipos {
-    id        Int      @id @default(autoincrement())
-    nome      String   @unique
-    Pets      Pets[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  nome_tipo String   // Ex: Golden Retriever
+  especie   String   // Ex: Cachorro, Gato
+  imageUrl  String
+  pets      Pets[]
+  
+  @@map("tipos")
 }
 
 model Pets {
-    id        Int      @id @default(autoincrement())
-    nome      String
-    tipoId    Int
-    Tipos     Tipos    @relation(fields: [tipoId], references: [id])
-    raca      String
-    idade     String
-    tamanho   String
-    genero    String
-    local     String
-    adotado   Boolean  @default(false)
-    vacinado  Boolean  @default(false)
-    castrado  Boolean  @default(false)
-    descricao String?
-    imagemUrl String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  nome        String
+  tipoId      Int
+  tipo        Tipos     @relation(fields: [tipoId], references: [id])
+  idade       String   // Ex: Filhote, Adulto, Idoso
+  tamanho     String   // Ex: Pequeno, Médio, Grande
+  genero      String   // Ex: Macho, Fêmea
+  local       String
+  adotado     Boolean  @default(false)
+  vacinado    Boolean  @default(false)
+  castrado    Boolean  @default(false)
+  descricao   String?
+  createdAt   DateTime @default(now())
+  
+  @@map("pets")
 }
