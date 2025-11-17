@@ -347,13 +347,16 @@ export async function seed() {
     }
 }
 
-// Executar o seed
+async function main() {
+    await seed();
+}
+
 main()
-    .then(() => {
-        console.log('✅ Seed executado com sucesso!')
-        process.exit(0)
+    .then(async () => {
+        await prisma.$disconnect();
     })
-    .catch((e) => {
-        console.error('❌ Seed falhou!')
-        process.exit(1)
-    })
+    .catch(async (e) => {
+        console.error(e);
+        await prisma.$disconnect();
+        process.exit(1);
+    });
