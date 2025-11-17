@@ -1,11 +1,10 @@
 import { PrismaClient } from '@prisma/client'
-
 const prisma = new PrismaClient()
 
-async function main() {
-    console.log('🚀 Iniciando seed do banco de dados...')
+export async function seed() {
 
     try {
+        console.log('🚀 Iniciando seed do banco de dados...');
         // Verificar conexão primeiro
         await prisma.$connect()
         console.log('✅ Conectado ao banco de dados')
