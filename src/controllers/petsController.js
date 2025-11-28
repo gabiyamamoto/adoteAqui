@@ -1,4 +1,5 @@
 import * as PetsModel from './../models/petsModel.js';
+import * as TiposModel from './../models/tiposModel.js';
 
 const idadesPermitidas = ['filhote', 'adulto', 'idoso'];
 const tamanhosPermitidos = ['pequeno', 'médio', 'grande'];
@@ -17,7 +18,7 @@ export const listarTodos = async (req, res) => {
         const pets = await PetsModel.encontreTodos(filtros);
 
         if (!pets || pets.length === 0) {
-            return res.status(404), json({
+            return res.status(404).json({
                 total: 0,
                 mensagem: 'Não há pets cadastrados com os filtros aplicados',
                 filtros
